@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class dbConnection {
+public class DbConnection {
     String url = "jdbc:sqlite:sessions.db";
     private static Connection conn;
     Statement stmnt = null;
 
 
-    public dbConnection() {
+    public DbConnection() {
         try {
             conn = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been stablished");
@@ -25,6 +25,19 @@ public class dbConnection {
                         "description TEXT, " +
                         "execs TEXT)";
             stmnt.executeUpdate(sStm);
+            sStm = "CREATE TABLE IF NOT EXISTS bannedProgs (" +
+                        "id INTEGER PRIMARY KEY NOT NULL, " +
+                        "name TEXT, " +
+                        "description TEXT)";
+            stmnt.executeUpdate(sStm);
+            //TODO - add a relational database so that when programs are added 
+
+
+            //             sStm = "CREATE TABLE IF NOT EXISTS Session (" +
+            //             "id INTEGER PRIMARY KEY NOT NULL, " +
+            //             "name TEXT, " +
+            //             "progs TEXT)";
+            // stmnt.executeUpdate(sStm);
             stmnt.close();
             
 
@@ -33,17 +46,20 @@ public class dbConnection {
         }
     }
 
-    public void addSession(String date, String txt, String execs){
-        String sql = "INSERT INTO sessions (date, description, execs) VALUES (?, ?, ?)";
+
+
+    public void addSession(String dateStrt, String dateFnsh, String txt, String execs){
+        String sql = "INSERT INTO sessions (dateStart, dateFinish, description, execs) VALUES (?, ?, ?)";
 
         //Added prepared statement to prevent injection (Nobody would inject anything here since it is a local db
         //but it is always good to practice industry standards)
 
         try {
             PreparedStatement pstmnt = conn.prepareStatement(sql);
-            pstmnt.setString(1, date);
-            pstmnt.setString(2, txt);
-            pstmnt.setString(3, execs);
+            pstmnt.setString(1, dateStrt);
+            pstmnt.setString(2, dateFnsh);
+            pstmnt.setString(3, txt);
+            pstmnt.setString(4, execs);
             System.out.println("Session added correctly");
         } catch (SQLException e) {
             System.out.println("Session could not be added" + e);
