@@ -65,9 +65,10 @@ public class CommandRunner {
             for (String elem : processes) {
                 System.out.println("Minimizing program: " + elem);
                 runner = new ProcessBuilder("nircmd/nircmd.exe","win", "min", "ititle", elem);
+                Process process = runner.start();
             }
-            Process process = runner.start();
-            System.out.println(process);
+            
+            // System.out.println(process);
 
 
         } catch(Exception e){
@@ -82,4 +83,3 @@ public class CommandRunner {
 
     //TO-DO make the cmd runner scan the active processes and display them with the buffered reader and 
     //make the user select which programs to block in the next session 
-
