@@ -14,13 +14,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class WindowBuilder extends Application {
+public class View extends Application {
+    
+    
+    
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("My Awesome Window");
+        primaryStage.setTitle("SteadFast snapshot");
 
         Pane pane = new Pane();
-        pane.setPrefSize(688, 337);
+        pane.setPrefSize(900, 900);
         pane.setStyle("-fx-background-color: #1e1e1e;");
 
         Button btnAddProgram = new Button("Add");
@@ -34,6 +37,7 @@ public class WindowBuilder extends Application {
         btnAddProgram.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> { btnAddProgram.setBackground(new Background(new BackgroundFill(Color.web("#232323"), new CornerRadii(4.00), null))); });
         btnAddProgram.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> { btnAddProgram.setBackground(new Background(new BackgroundFill(Color.web("#2e2e2e"), new CornerRadii(4.00), null))); });
         pane.getChildren().add(btnAddProgram);
+        
 
         TextArea txtArea = new TextArea("");
         txtArea.setLayoutX(325.00);
